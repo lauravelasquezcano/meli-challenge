@@ -9,10 +9,12 @@
     <dimen name="image_size_200">200dp</dimen>
 
     <!-- Margins -->
+    <dimen name="margin_4">4dp</dimen>
     <dimen name="margin_8">8dp</dimen>
     <dimen name="margin_10">10dp</dimen>
     <dimen name="margin_15">15dp</dimen>
     <dimen name="margin_30">30dp</dimen>
+    <dimen name="margin_40">40dp</dimen>
 
     <!-- Text -->
     <dimen name="size_20">20sp</dimen>

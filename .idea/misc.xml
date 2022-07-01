@@ -4,10 +4,16 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Lau/Android/meli-challenge/app/src/main/res/drawable-v24/ic_mercadolibre.xml" value="0.254" />
+        <entry key="..\:/Lau/Android/meli-challenge/app/src/main/res/drawable/ic_cancel.xml" value="0.206" />
+        <entry key="..\:/Lau/Android/meli-challenge/app/src/main/res/drawable/ic_check.xml" value="0.206" />
+        <entry key="..\:/Lau/Android/meli-challenge/app/src/main/res/drawable/ic_empty_search.xml" value="0.1725" />
         <entry key="..\:/Lau/Android/meli-challenge/app/src/main/res/drawable/ic_mercadolibre.xml" value="0.254" />
+        <entry key="..\:/Lau/Android/meli-challenge/app/src/main/res/drawable/ic_search.xml" value="0.1725" />
         <entry key="..\:/Lau/Android/meli-challenge/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Lau/Android/meli-challenge/app/src/main/res/layout/fragment_detail.xml" value="0.1984375" />
         <entry key="..\:/Lau/Android/meli-challenge/app/src/main/res/layout/fragment_results.xml" value="0.16354166666666667" />
         <entry key="..\:/Lau/Android/meli-challenge/app/src/main/res/layout/fragment_search.xml" value="0.2484375" />
+        <entry key="..\:/Lau/Android/meli-challenge/app/src/main/res/layout/result_item.xml" value="0.16354166666666667" />
       </map>
     </option>
   </component>

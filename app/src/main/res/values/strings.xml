@@ -7,4 +7,10 @@
     <!-- Results -->
     <string name="empty_results">No existen resultados para tu búsqueda</string>
 
+    <!-- Details -->
+    <string name="item_sold_quantity">%s vendidos</string>
+    <string name="item_available_quantity">%s disponibles</string>
+    <string name="item_free_shipping">Envío gratis</string>
+    <string name="item_store_pick_up">Recoger en tienda</string>
+
 </resources>
