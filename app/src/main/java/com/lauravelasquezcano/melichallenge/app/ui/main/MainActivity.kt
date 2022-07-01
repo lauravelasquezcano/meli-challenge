@@ -1,7 +1,8 @@
-package com.lauravelasquezcano.melichallenge
+package com.lauravelasquezcano.melichallenge.app.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.lauravelasquezcano.melichallenge.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
