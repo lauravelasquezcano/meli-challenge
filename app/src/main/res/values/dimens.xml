@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Width -->
+    <dimen name="width_0">0dp</dimen>
+
+    <!-- Image -->
+    <dimen name="image_size_200">200dp</dimen>
+
+    <!-- Margins -->
+    <dimen name="margin_30">30dp</dimen>
+
+    <!-- Text -->
+    <dimen name="size_25">25sp</dimen>
+</resources>

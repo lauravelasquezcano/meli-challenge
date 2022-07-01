@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">Meli Challenge</string>
+    <string name="app_name">Mercado libre</string>
+
+    <!-- Search -->
+    <string name="search_field_hint">Escribe algo para realizar una búsqueda</string>
+
+
 </resources>

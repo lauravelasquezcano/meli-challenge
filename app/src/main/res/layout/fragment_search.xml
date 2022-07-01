@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".app.ui.main.search.SearchFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_search_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.6" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_mercadolibre"
+            android:layout_width="@dimen/image_size_200"
+            android:layout_height="@dimen/image_size_200"
+            app:layout_constraintBottom_toTopOf="@+id/gl_search_horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_mercadolibre" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="@dimen/width_0"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_30"
+            android:hint="@string/search_field_hint"
+            app:boxBackgroundColor="@android:color/transparent"
+            app:endIconMode="clear_text"
+            app:hintTextColor="@color/blue"
+            app:layout_constraintBottom_toTopOf="@id/gl_search_horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_mercadolibre">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionSearch"
+                android:inputType="textCapSentences"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/size_25" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>
