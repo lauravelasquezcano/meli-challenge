@@ -4,11 +4,23 @@
     <dimen name="width_0">0dp</dimen>
 
     <!-- Image -->
+    <dimen name="image_size_70">70dp</dimen>
+    <dimen name="image_size_100">100dp</dimen>
     <dimen name="image_size_200">200dp</dimen>
 
     <!-- Margins -->
+    <dimen name="margin_8">8dp</dimen>
+    <dimen name="margin_10">10dp</dimen>
+    <dimen name="margin_15">15dp</dimen>
     <dimen name="margin_30">30dp</dimen>
 
     <!-- Text -->
+    <dimen name="size_20">20sp</dimen>
     <dimen name="size_25">25sp</dimen>
+
+    <!-- Radius -->
+    <dimen name="radius_10">10dp</dimen>
+
+    <!-- Elevation -->
+    <dimen name="elevation_5">5dp</dimen>
 </resources>

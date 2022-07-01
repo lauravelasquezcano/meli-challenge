@@ -4,5 +4,7 @@
     <!-- Search -->
     <string name="search_field_hint">Escribe algo para realizar una búsqueda</string>
 
+    <!-- Results -->
+    <string name="empty_results">No existen resultados para tu búsqueda</string>
 
 </resources>

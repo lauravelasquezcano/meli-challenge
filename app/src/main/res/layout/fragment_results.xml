@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".app.ui.main.results.ResultsFragment">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_empty_search"
+        android:layout_width="@dimen/image_size_70"
+        android:layout_height="@dimen/image_size_70"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_empty_search"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_empty_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/iv_empty_search"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/blue"
+        android:textSize="@dimen/size_20"
+        android:text="@string/empty_results"/>
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/g_empty_search"
+        android:layout_width="@dimen/width_0"
+        android:layout_height="@dimen/width_0"
+        app:constraint_referenced_ids="iv_empty_search, tv_empty_search"
+        android:visibility="gone"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_results"
+        android:layout_width="@dimen/width_0"
+        android:layout_height="@dimen/width_0"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:itemCount="3"
+        tools:listitem="@layout/result_item"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
