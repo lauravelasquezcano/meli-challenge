@@ -3,6 +3,7 @@
 
     <!-- Search -->
     <string name="search_field_hint">Escribe algo para realizar una búsqueda</string>
+    <string name="error_mandatory_field">Este campo es obligatorio para realizar una búsqueda</string>
 
     <!-- Results -->
     <string name="empty_results">No existen resultados para tu búsqueda</string>
