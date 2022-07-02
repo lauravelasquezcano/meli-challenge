@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/fragment_search">
+
+    <fragment
+        android:id="@+id/fragment_search"
+        android:name="com.lauravelasquezcano.melichallenge.app.ui.main.search.SearchFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout="@layout/fragment_search">
+
+        <action
+            android:id="@+id/action_go_results_fragment"
+            app:destination="@+id/fragment_results" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_results"
+        android:name="com.lauravelasquezcano.melichallenge.app.ui.main.results.ResultsFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout="@layout/fragment_results">
+
+        <action
+            android:id="@+id/action_go_details_fragment"
+            app:destination="@+id/fragment_details" />
+
+        <argument
+            android:name="query"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_details"
+        android:name="com.lauravelasquezcano.melichallenge.app.ui.main.details.DetailFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout="@layout/fragment_detail">
+
+        <action
+            android:id="@+id/action_go_results_fragment"
+            app:destination="@+id/fragment_results" />
+
+        <argument
+            android:name="itemId"
+            app:argType="string" />
+    </fragment>
+
+
+</navigation>
