@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.lauravelasquezcano.melichallenge.R
 import com.lauravelasquezcano.melichallenge.databinding.FragmentSearchBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SearchFragment : Fragment() {
 
     private var _binding: FragmentSearchBinding? = null

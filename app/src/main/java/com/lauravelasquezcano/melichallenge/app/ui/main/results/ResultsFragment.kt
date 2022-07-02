@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.lauravelasquezcano.melichallenge.R
 import com.lauravelasquezcano.melichallenge.databinding.FragmentResultsBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ResultsFragment : Fragment() {
 
     private var _binding: FragmentResultsBinding? = null
