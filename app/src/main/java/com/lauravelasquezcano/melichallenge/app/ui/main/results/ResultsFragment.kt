@@ -29,6 +29,7 @@ class ResultsFragment : Fragment() {
 
     private val args: ResultsFragmentArgs by navArgs()
 
+    private var adapter: ResultsAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,6 +53,14 @@ class ResultsFragment : Fragment() {
 
     private fun initConfiguration() {
         progressDialog = ProgressDialog(requireContext())
+        initRecyclerView()
+    }
+
+    private fun initRecyclerView() {
+        adapter = ResultsAdapter()
+        binding.rvResults.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvResults.setHasFixedSize(true)
+        binding.rvResults.adapter = adapter
     }
 
     private fun initObserver() {
@@ -74,6 +83,9 @@ class ResultsFragment : Fragment() {
     private fun handleItemsList(itemsList: List<Item>) {
         if (itemsList.isNotEmpty()) {
             showRecyclerView()
+            adapter?.let {
+                it.setData(itemsList)
+            }
         } else {
             showEmptyState()
         }
