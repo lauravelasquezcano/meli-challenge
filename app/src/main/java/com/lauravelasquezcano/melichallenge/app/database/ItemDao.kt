@@ -10,4 +10,7 @@ interface ItemDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(item: DbItem): Long
+
+    @Query("SELECT * FROM item WHERE id = :id")
+    fun getItemById(id: String): DbItem?
 }

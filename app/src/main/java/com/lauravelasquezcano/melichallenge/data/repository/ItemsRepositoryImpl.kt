@@ -39,4 +39,6 @@ class ItemsRepositoryImpl @Inject constructor(
         )
         return localDataSource.saveItem(dbItem)
     }
+
+    override suspend fun getItemById(id: String): DbItem? = localDataSource.getItemById(id)
 }

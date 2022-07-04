@@ -2,7 +2,6 @@ package com.lauravelasquezcano.melichallenge.app.ui.main.results
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +11,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lauravelasquezcano.melichallenge.R
 import com.lauravelasquezcano.melichallenge.app.ui.utils.ProgressDialog
-import com.lauravelasquezcano.melichallenge.data.model.GetItemsState
+import com.lauravelasquezcano.melichallenge.data.model.SearchItemState
 import com.lauravelasquezcano.melichallenge.data.model.SaveItemState
 import com.lauravelasquezcano.melichallenge.databinding.FragmentResultsBinding
 import com.lauravelasquezcano.melichallenge.domain.Item
@@ -69,17 +68,17 @@ class ResultsFragment : Fragment(), ResultsAdapter.ResultsInterface {
     }
 
     private fun initObserver() {
-        resultsViewModel.getItemsState.observe(viewLifecycleOwner) { getItemState ->
-            when (getItemState) {
-                GetItemsState.Loading -> {
+        resultsViewModel.searchItemState.observe(viewLifecycleOwner) { searchItemState ->
+            when (searchItemState) {
+                SearchItemState.Loading -> {
                     progressDialog.showProgress()
                 }
-                is GetItemsState.Success -> {
+                is SearchItemState.Success -> {
                     progressDialog.hideProgress()
-                    handleItemsList(getItemState.items)
+                    handleItemsList(searchItemState.items)
                 }
-                is GetItemsState.Failure -> {
-                    showMessageDialog(getItemState.message)
+                is SearchItemState.Failure -> {
+                    showMessageDialog(searchItemState.message)
                 }
             }
         }

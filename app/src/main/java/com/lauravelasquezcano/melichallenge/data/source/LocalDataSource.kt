@@ -5,4 +5,5 @@ import com.lauravelasquezcano.melichallenge.app.database.DbItem
 interface LocalDataSource {
 
     fun saveItem(item: DbItem): Long
+    fun getItemById(id: String) :DbItem?
 }
