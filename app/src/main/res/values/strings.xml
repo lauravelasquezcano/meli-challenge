@@ -8,6 +8,9 @@
     <!-- Results -->
     <string name="empty_results">No existen resultados para tu búsqueda</string>
 
+    <!-- MessageDialog -->
+    <string name="btn_ok">OK</string>
+
     <!-- Details -->
     <string name="item_sold_quantity">%s vendidos</string>
     <string name="item_available_quantity">%s disponibles</string>
