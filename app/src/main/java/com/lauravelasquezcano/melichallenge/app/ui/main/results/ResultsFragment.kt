@@ -2,22 +2,25 @@ package com.lauravelasquezcano.melichallenge.app.ui.main.results
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lauravelasquezcano.melichallenge.R
 import com.lauravelasquezcano.melichallenge.app.ui.utils.ProgressDialog
 import com.lauravelasquezcano.melichallenge.data.model.GetItemsState
+import com.lauravelasquezcano.melichallenge.data.model.SaveItemState
 import com.lauravelasquezcano.melichallenge.databinding.FragmentResultsBinding
 import com.lauravelasquezcano.melichallenge.domain.Item
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ResultsFragment : Fragment() {
+class ResultsFragment : Fragment(), ResultsAdapter.ResultsInterface {
 
     private var _binding: FragmentResultsBinding? = null
     private val binding get() = _binding!!
@@ -30,6 +33,8 @@ class ResultsFragment : Fragment() {
     private val args: ResultsFragmentArgs by navArgs()
 
     private var adapter: ResultsAdapter? = null
+
+    private var selectedItemId : String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,7 +62,7 @@ class ResultsFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
-        adapter = ResultsAdapter()
+        adapter = ResultsAdapter(this)
         binding.rvResults.layoutManager = LinearLayoutManager(requireContext())
         binding.rvResults.setHasFixedSize(true)
         binding.rvResults.adapter = adapter
@@ -77,6 +82,17 @@ class ResultsFragment : Fragment() {
                     showMessageDialog(getItemState.message)
                 }
             }
+        }
+        resultsViewModel.saveItemState.observe(viewLifecycleOwner) { saveItemState ->
+            when (saveItemState) {
+                SaveItemState.Success -> {
+                    goToDetails()
+                }
+                SaveItemState.Failure -> {
+                    showMessageDialog(getString(R.string.go_to_details_error))
+                }
+            }
+
         }
     }
 
@@ -120,5 +136,16 @@ class ResultsFragment : Fragment() {
 
     private fun getItems() {
         resultsViewModel.searchItems(args.query)
+    }
+
+    override fun saveItem(selectedItem: Item) {
+        selectedItemId = selectedItem.id
+        resultsViewModel.saveItem(selectedItem)
+    }
+
+    private fun goToDetails(){
+        selectedItemId?.let {
+            Navigation.findNavController(requireView()).navigate(ResultsFragmentDirections.actionGoDetailsFragment(it))
+        }
     }
 }

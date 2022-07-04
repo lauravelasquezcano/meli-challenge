@@ -7,6 +7,7 @@
 
     <!-- Results -->
     <string name="empty_results">No existen resultados para tu búsqueda</string>
+    <string name="go_to_details_error">En este momento no podemos mostrar el detalle de este producto. Intentalo de nuevo más tarde</string>
 
     <!-- MessageDialog -->
     <string name="btn_ok">OK</string>

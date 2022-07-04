@@ -10,10 +10,16 @@ import com.lauravelasquezcano.melichallenge.R
 import com.lauravelasquezcano.melichallenge.databinding.ResultItemBinding
 import com.lauravelasquezcano.melichallenge.domain.Item
 
-class ResultsAdapter : RecyclerView.Adapter<ResultsAdapter.ResultViewHolder>() {
+class ResultsAdapter(
+    private val resultListener: ResultsInterface
+) : RecyclerView.Adapter<ResultsAdapter.ResultViewHolder>() {
 
     private lateinit var context: Context
     private lateinit var data: List<Item>
+
+    interface ResultsInterface {
+        fun saveItem(selectedItem: Item)
+    }
 
     fun setData(itemList: List<Item>) {
         data = itemList
@@ -28,6 +34,7 @@ class ResultsAdapter : RecyclerView.Adapter<ResultsAdapter.ResultViewHolder>() {
     override fun onBindViewHolder(holder: ResultViewHolder, position: Int) {
         val item = data[position]
         holder.bind(item)
+        holder.initListener(item)
     }
 
     override fun getItemCount(): Int = data.size
@@ -50,6 +57,12 @@ class ResultsAdapter : RecyclerView.Adapter<ResultsAdapter.ResultViewHolder>() {
                 .placeholder(R.drawable.ic_image_holder)
                 .error(R.drawable.ic_broken_image)
                 .into(binding.ivItemImage)
+        }
+
+        fun initListener(item: Item) {
+            itemView.setOnClickListener {
+                resultListener.saveItem(item)
+            }
         }
     }
 }
