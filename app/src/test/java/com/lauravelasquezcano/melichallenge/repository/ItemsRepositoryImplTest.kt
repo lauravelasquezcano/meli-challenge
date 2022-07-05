@@ -50,7 +50,7 @@ class ItemsRepositoryImplTest {
 
         val result = itemsRepository.searchItems("motorola") as ResultWrapper.Success
 
-        coVerify {
+        coVerify(exactly = 1) {
             searchApi.getAllItems("motorola")
         }
         assertEquals(mockedSearchResponse, result.data)
@@ -69,7 +69,7 @@ class ItemsRepositoryImplTest {
 
         val result = itemsRepository.searchItems("motorola") as ResultWrapper.GenericError
 
-        coVerify {
+        coVerify(exactly = 1) {
             searchApi.getAllItems("motorola")
         }
         assertEquals(422, result.code)
@@ -82,7 +82,7 @@ class ItemsRepositoryImplTest {
 
         val item = itemsRepository.getItemById("asdf")
 
-        verify { localDataSource.getItemById("asdf") }
+        verify(exactly = 1) { localDataSource.getItemById("asdf") }
         assertEquals(mockedDbItem, item)
     }
 
@@ -93,7 +93,7 @@ class ItemsRepositoryImplTest {
 
         val id = itemsRepository.saveItem(mockedItem)
 
-        verify { localDataSource.saveItem(mockedDbItem) }
+        verify(exactly = 1) { localDataSource.saveItem(mockedDbItem) }
         assertEquals(4L, id)
     }
 }
