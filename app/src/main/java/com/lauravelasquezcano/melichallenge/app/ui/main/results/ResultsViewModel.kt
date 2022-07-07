@@ -1,9 +1,6 @@
 package com.lauravelasquezcano.melichallenge.app.ui.main.results
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.lauravelasquezcano.melichallenge.data.model.SearchItemState
 import com.lauravelasquezcano.melichallenge.data.model.SaveItemState
 import com.lauravelasquezcano.melichallenge.domain.Item
@@ -23,14 +20,14 @@ class ResultsViewModel @Inject constructor(
     val searchItemState: LiveData<SearchItemState>
         get() = _searchItemState
 
-    private val _saveItemState = MutableLiveData<SaveItemState>()
-    val saveItemState: LiveData<SaveItemState>
+    private val _saveItemState = MutableLiveData<Event<SaveItemState>>()
+    val saveItemState: LiveData<Event<SaveItemState>>
         get() = _saveItemState
 
     fun searchItems(query: String) {
         _searchItemState.postValue(SearchItemState.Loading)
         viewModelScope.launch(Dispatchers.IO) {
-            when(val items = searchItemsUseCase.execute(query)) {
+            when (val items = searchItemsUseCase.execute(query)) {
                 is ResultWrapper.Success ->
                     _searchItemState.postValue(SearchItemState.Success(items.data.results))
                 is ResultWrapper.GenericError -> {
@@ -44,9 +41,9 @@ class ResultsViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             saveItemUseCase.execute(item).also {
                 if (it != -1L) {
-                    _saveItemState.postValue(SaveItemState.Success)
+                    _saveItemState.postValue(Event(SaveItemState.Success))
                 } else {
-                    _saveItemState.postValue(SaveItemState.Failure)
+                    _saveItemState.postValue(Event(SaveItemState.Failure))
                 }
             }
         }
