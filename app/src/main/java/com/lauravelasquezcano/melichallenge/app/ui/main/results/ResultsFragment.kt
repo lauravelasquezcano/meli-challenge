@@ -19,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ResultsFragment : Fragment(), ResultsAdapter.ResultsInterface {
+class ResultsFragment : Fragment() {
 
     private var _binding: FragmentResultsBinding? = null
     private val binding get() = _binding!!
@@ -31,9 +31,10 @@ class ResultsFragment : Fragment(), ResultsAdapter.ResultsInterface {
 
     private val args: ResultsFragmentArgs by navArgs()
 
-    private var adapter: ResultsAdapter? = null
+    @Inject
+    lateinit var adapter: ResultsAdapter
 
-    private var selectedItemId : String? = null
+    private var selectedItemId: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,10 +62,15 @@ class ResultsFragment : Fragment(), ResultsAdapter.ResultsInterface {
     }
 
     private fun initRecyclerView() {
-        adapter = ResultsAdapter(this)
-        binding.rvResults.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvResults.setHasFixedSize(true)
-        binding.rvResults.adapter = adapter
+        with(binding.rvResults) {
+            layoutManager = LinearLayoutManager(requireContext())
+            setHasFixedSize(true)
+            adapter = this@ResultsFragment.adapter
+        }
+        adapter.saveItem = { item ->
+            selectedItemId = item.id
+            resultsViewModel.saveItem(item)
+        }
     }
 
     private fun initObserver() {
@@ -82,16 +88,17 @@ class ResultsFragment : Fragment(), ResultsAdapter.ResultsInterface {
                 }
             }
         }
-        resultsViewModel.saveItemState.observe(viewLifecycleOwner) { saveItemState ->
-            when (saveItemState) {
-                SaveItemState.Success -> {
-                    goToDetails()
-                }
-                SaveItemState.Failure -> {
-                    showMessageDialog(getString(R.string.go_to_details_error))
+        resultsViewModel.saveItemState.observe(viewLifecycleOwner) { event ->
+            event.getContentIfNotHandledOrReturnNull()?.let { saveItemState ->
+                when (saveItemState) {
+                    SaveItemState.Success -> {
+                        goToDetails()
+                    }
+                    SaveItemState.Failure -> {
+                        showMessageDialog(getString(R.string.go_to_details_error))
+                    }
                 }
             }
-
         }
     }
 
@@ -106,7 +113,7 @@ class ResultsFragment : Fragment(), ResultsAdapter.ResultsInterface {
         }
     }
 
-    private fun showMessageDialog(message: String){
+    private fun showMessageDialog(message: String) {
         val messageDialog = AlertDialog.Builder(requireContext())
         messageDialog.setMessage(message)
         messageDialog.setNeutralButton(
@@ -125,11 +132,11 @@ class ResultsFragment : Fragment(), ResultsAdapter.ResultsInterface {
         binding.rvResults.visibility = View.VISIBLE
     }
 
-    private fun hideEmptyState(){
+    private fun hideEmptyState() {
         binding.gEmptySearch.visibility = View.GONE
     }
 
-    private fun hideRecyclerView(){
+    private fun hideRecyclerView() {
         binding.rvResults.visibility = View.GONE
     }
 
@@ -137,14 +144,10 @@ class ResultsFragment : Fragment(), ResultsAdapter.ResultsInterface {
         resultsViewModel.searchItems(args.query)
     }
 
-    override fun saveItem(selectedItem: Item) {
-        selectedItemId = selectedItem.id
-        resultsViewModel.saveItem(selectedItem)
-    }
-
-    private fun goToDetails(){
+    private fun goToDetails() {
         selectedItemId?.let {
-            Navigation.findNavController(requireView()).navigate(ResultsFragmentDirections.actionGoDetailsFragment(it))
+            Navigation.findNavController(requireView())
+                .navigate(ResultsFragmentDirections.actionGoDetailsFragment(it))
         }
     }
 }

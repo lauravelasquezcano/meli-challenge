@@ -9,27 +9,28 @@ import com.bumptech.glide.Glide
 import com.lauravelasquezcano.melichallenge.R
 import com.lauravelasquezcano.melichallenge.databinding.ResultItemBinding
 import com.lauravelasquezcano.melichallenge.domain.Item
+import javax.inject.Inject
 
-class ResultsAdapter(
-    private val resultListener: ResultsInterface
-) : RecyclerView.Adapter<ResultsAdapter.ResultViewHolder>() {
+class ResultsAdapter @Inject constructor() :
+    RecyclerView.Adapter<ResultsAdapter.ResultViewHolder>() {
 
-    private lateinit var context: Context
     private lateinit var data: List<Item>
 
-    interface ResultsInterface {
-        fun saveItem(selectedItem: Item)
-    }
+    var saveItem: ((Item) -> Unit)? = null
 
     fun setData(itemList: List<Item>) {
         data = itemList
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ResultViewHolder {
-        val binding = ResultItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        context = parent.context
-        return ResultViewHolder(binding)
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ResultViewHolder =
+        ResultViewHolder(
+            ResultItemBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
+
 
     override fun onBindViewHolder(holder: ResultViewHolder, position: Int) {
         val item = data[position]
@@ -51,9 +52,9 @@ class ResultsAdapter(
                 if (item.currency_id.isNullOrEmpty()) tvCurrency.visibility =
                     View.GONE else tvCurrency.text = item.currency_id
             }
-            Glide.with(context)
+            Glide.with(binding.root.context)
                 .load(item.thumbnail)
-                .override(100, 100)
+                .override(IMAGE_SIZE, IMAGE_SIZE)
                 .placeholder(R.drawable.ic_image_holder)
                 .error(R.drawable.ic_broken_image)
                 .into(binding.ivItemImage)
@@ -61,8 +62,12 @@ class ResultsAdapter(
 
         fun initListener(item: Item) {
             itemView.setOnClickListener {
-                resultListener.saveItem(item)
+                saveItem?.invoke(item)
             }
         }
+    }
+
+    companion object {
+        const val IMAGE_SIZE = 100
     }
 }

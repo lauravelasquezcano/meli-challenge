@@ -1,6 +1,7 @@
 package com.lauravelasquezcano.melichallenge.ui
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.lauravelasquezcano.melichallenge.app.ui.main.results.Event
 import com.lauravelasquezcano.melichallenge.app.ui.main.results.ResultsViewModel
 import com.lauravelasquezcano.melichallenge.data.model.GetItemState
 import com.lauravelasquezcano.melichallenge.data.model.SaveItemState
@@ -79,7 +80,7 @@ class ResultsViewModelTest {
 
         viewModel.saveItem(mockedItem)
         coVerify(exactly = 1) { saveItemUseCase.execute(mockedItem) }
-        assertEquals(SaveItemState.Success, viewModel.saveItemState.value)
+        assertEquals(Event(SaveItemState.Success).peekContent(), viewModel.saveItemState.value?.peekContent())
     }
 
     @Test
@@ -88,6 +89,6 @@ class ResultsViewModelTest {
 
         viewModel.saveItem(mockedItem)
         coVerify(exactly = 1) { saveItemUseCase.execute(mockedItem) }
-        assertEquals(SaveItemState.Failure, viewModel.saveItemState.value)
+        assertEquals(Event(SaveItemState.Failure).peekContent(), viewModel.saveItemState.value?.peekContent())
     }
 }

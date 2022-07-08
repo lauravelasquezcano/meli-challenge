@@ -18,6 +18,7 @@ android {
 
         //testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunner "com.lauravelasquezcano.melichallenge.utils.CustomTestRunner"
+        buildConfigField("String", "BASE_URL", "\"https://api.mercadolibre.com/\"")
     }
 
     buildTypes {

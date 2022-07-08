@@ -1,5 +1,6 @@
 package com.lauravelasquezcano.melichallenge.app.di.module
 
+import com.lauravelasquezcano.melichallenge.BuildConfig
 import com.lauravelasquezcano.melichallenge.app.ui.Constants.BASE_URL
 import com.lauravelasquezcano.melichallenge.data.remote.SearchApi
 import dagger.Module
@@ -18,19 +19,21 @@ import javax.inject.Singleton
 @Module
 object RetrofitModule {
 
+    private const val TIME_OUT = 60L
+
     @Singleton
     @Provides
     fun provideClient(): OkHttpClient = HttpLoggingInterceptor().run {
         level = HttpLoggingInterceptor.Level.BODY
         OkHttpClient.Builder().addInterceptor(this)
-            .connectTimeout(60, TimeUnit.SECONDS)
+            .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
             .build()
     }
 
     @Singleton
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient) : SearchApi =
-        Retrofit.Builder().baseUrl(BASE_URL)
+        Retrofit.Builder().baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create()).client(okHttpClient).build()
             .create(SearchApi::class.java)
 
