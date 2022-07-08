@@ -19,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ResultsFragment : Fragment(), ResultsAdapter.ResultsInterface {
+class ResultsFragment : Fragment() {
 
     private var _binding: FragmentResultsBinding? = null
     private val binding get() = _binding!!
@@ -31,7 +31,8 @@ class ResultsFragment : Fragment(), ResultsAdapter.ResultsInterface {
 
     private val args: ResultsFragmentArgs by navArgs()
 
-    private var adapter: ResultsAdapter? = null
+    @Inject
+    lateinit var adapter: ResultsAdapter
 
     private var selectedItemId: String? = null
 
@@ -61,11 +62,14 @@ class ResultsFragment : Fragment(), ResultsAdapter.ResultsInterface {
     }
 
     private fun initRecyclerView() {
-        adapter = ResultsAdapter(this)
         with(binding.rvResults) {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
             adapter = this@ResultsFragment.adapter
+        }
+        adapter.saveItem = { item ->
+            selectedItemId = item.id
+            resultsViewModel.saveItem(item)
         }
     }
 
@@ -138,11 +142,6 @@ class ResultsFragment : Fragment(), ResultsAdapter.ResultsInterface {
 
     private fun getItems() {
         resultsViewModel.searchItems(args.query)
-    }
-
-    override fun saveItem(selectedItem: Item) {
-        selectedItemId = selectedItem.id
-        resultsViewModel.saveItem(selectedItem)
     }
 
     private fun goToDetails() {
